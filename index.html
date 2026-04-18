@@ -250,11 +250,9 @@
         // 2. LOGIC TÌM KIẾM DANH BẠ VÀ GỌI/ZALO
         // ==========================================
         $(document).ready(function() {
-            // Modal Logic (Tailwind)
             $("#btn_open_modal").click(function() { $("#thuongtruc_modal").removeClass('hidden'); });
             $("#btn_close_modal").click(function() { $("#thuongtruc_modal").addClass('hidden'); });
 
-            // Tải dữ liệu đổ vào Datalist
             fetch(API_URL_CONTACTS)
                 .then(response => response.json())
                 .then(danhba => {
@@ -269,7 +267,6 @@
                 })
                 .catch(err => console.log("Lỗi tải API danh bạ:", err));
 
-            // Nút Gọi Ngay
             $("#goi_ngay").click(function(e) {
                 e.preventDefault();
                 const val = $("#search-input").val();
@@ -278,7 +275,6 @@
                 window.location.href = "tel:" + sdtSlice;
             });
 
-            // Nút Zalo Ngay
             $("#zalo_ngay").click(function(e) {
                 e.preventDefault();
                 const val = $("#search-input").val();
@@ -306,12 +302,10 @@
             const data = shiftData[day - 1]; 
             const rowSheet = day + 1; 
 
-            // Cập nhật ngày tháng trên giao diện
             $("#ngayhomnay").text(`PHIÊN TRỰC NGÀY: ${day}/${currentMonth}/${currentYear}`);
             $("#nextButton-span").text(`${day + 1}/${currentMonth}`);
             $("#preButton-span").text(`${day - 1}/${currentMonth}`);
 
-            // Map ID HTML với biến Google Sheets
             const fields = [
                 { id: "lanhdao", col: "B" }, 
                 { id: "bacsi_1", col: "D", htmlId: "chuyenmon_1", editId: "bacsi1" },
@@ -328,29 +322,25 @@
             ];
 
             fields.forEach(f => {
-                // Tách riêng ID của Tên và ID của Số điện thoại/Nút gọi
                 const nameId = f.htmlId ? f.htmlId : f.id; 
                 const sdtId = f.id; 
                 
                 const nameText = data[f.id] || '---';
                 const phoneText = data[`sdt_${f.id}`] || 'Chưa có số';
                 
-                // Đổ text Tên
                 $(`#name_${nameId}`).text(nameText);
                 
-                // Đổ text Số điện thoại (sử dụng sdtId)
                 if($(`#sdt_${sdtId}`).length) {
                     $(`#sdt_${sdtId}`).text(phoneText);
                 }
                 
-                // Đổ link vào nút GỌI NGAY (sử dụng sdtId)
                 $(`#goingay_${sdtId}`).attr("href", phoneText !== 'Chưa có số' ? "tel:" + phoneText : "#");
                 
-                // Đổ link cho nút Edit (Cái bút chì)
                 if(!f.noEdit) {
                     $(`#edit-name-${f.editId || nameId}`).attr("href", SHEET_URL + f.col + rowSheet);
                 }
             });
+        } // Đã vá lỗi thiếu dấu ngoặc nhọn ở đây!
 
         $(document).ready(function() {
             fetch(API_URL_SHIFTS)
