@@ -328,18 +328,29 @@
             ];
 
             fields.forEach(f => {
-                const htmlNameId = f.htmlId ? f.htmlId : f.id;
+                // Tách riêng ID của Tên và ID của Số điện thoại/Nút gọi
+                const nameId = f.htmlId ? f.htmlId : f.id; 
+                const sdtId = f.id; 
                 
                 const nameText = data[f.id] || '---';
                 const phoneText = data[`sdt_${f.id}`] || 'Chưa có số';
                 
-                $(`#name_${htmlNameId}`).text(nameText);
-                if($(`#sdt_${htmlNameId}`).length) $(`#sdt_${htmlNameId}`).text(phoneText);
+                // Đổ text Tên
+                $(`#name_${nameId}`).text(nameText);
                 
-                $(`#goingay_${htmlNameId}`).attr("href", phoneText !== 'Chưa có số' ? "tel:" + phoneText : "#");
-                if(!f.noEdit) $(`#edit-name-${f.editId || htmlNameId}`).attr("href", SHEET_URL + f.col + rowSheet);
+                // Đổ text Số điện thoại (sử dụng sdtId)
+                if($(`#sdt_${sdtId}`).length) {
+                    $(`#sdt_${sdtId}`).text(phoneText);
+                }
+                
+                // Đổ link vào nút GỌI NGAY (sử dụng sdtId)
+                $(`#goingay_${sdtId}`).attr("href", phoneText !== 'Chưa có số' ? "tel:" + phoneText : "#");
+                
+                // Đổ link cho nút Edit (Cái bút chì)
+                if(!f.noEdit) {
+                    $(`#edit-name-${f.editId || nameId}`).attr("href", SHEET_URL + f.col + rowSheet);
+                }
             });
-        }
 
         $(document).ready(function() {
             fetch(API_URL_SHIFTS)
