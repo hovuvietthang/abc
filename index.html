@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Bạ Bệnh Viện</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        /* Tối ưu thanh cuộn cho nhỏ gọn */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    </style>
+</head>
+<body class="pb-20 text-slate-800">
+
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 px-2 py-2 shadow-sm">
+        <div class="max-w-md mx-auto flex flex-col gap-2">
+            <div class="flex gap-1.5 items-center">
+                <div class="relative group shrink-0">
+                    <button class="bg-slate-800 text-white px-2.5 py-1.5 rounded-lg text-sm shadow-sm">
+                        <i class="bi bi-grid-fill"></i>
+                    </button>
+                    <div class="absolute left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-slate-100 hidden group-hover:block overflow-hidden z-50">
+                        <a href="https://khth.vercel.app" target="_blank" class="block px-3 py-2 text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+                            <i class="bi bi-shield-check mr-1"></i> TỔ BẢO HIỂM
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="relative flex-1">
+                    <i class="bi bi-search absolute left-2.5 top-1/2 transform -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input id="search-input" list="suggestions" type="search" placeholder="Nhập tên tìm SĐT..." 
+                        class="w-full bg-slate-100 border border-slate-200 rounded-lg py-1.5 pl-7 pr-3 text-sm focus:ring-1 focus:ring-blue-500 outline-none transition-all">
+                    <datalist id="suggestions"></datalist>
+                </div>
+            </div>
+            
+            <div class="flex gap-1.5">
+                <button id="goi_ngay" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-1.5 rounded-lg text-xs font-bold flex justify-center items-center gap-1 shadow-sm transition-colors">
+                    <i class="bi bi-telephone-fill"></i> GỌI NGAY
+                </button>
+                <button id="zalo_ngay" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-1.5 rounded-lg text-xs font-bold flex justify-center items-center gap-1 shadow-sm transition-colors">
+                    <i class="bi bi-chat-dots-fill"></i> ZALO NGAY
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-md mx-auto p-2 space-y-3" id="div_phientruc">
+        
+        <div class="text-center py-1">
+            <h2 class="text-blue-800 font-bold text-sm uppercase tracking-tight" id="ngayhomnay">Đang tải dữ liệu...</h2>
+        </div>
+
+        <div class="bg-red-50 border border-red-100 p-2.5 rounded-xl shadow-sm text-center relative">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-red-500 rounded-l-xl"></div>
+            <p class="text-[10px] font-bold text-red-600 uppercase mb-0.5">Trực Lãnh Đạo</p>
+            <div class="flex justify-center items-center gap-1 mb-1">
+                <h3 class="text-base font-bold text-slate-900 leading-tight" id="name_lanhdao">...</h3>
+                <a id="edit-name-lanhdao" href="#" target="_blank" class="text-slate-400 hover:text-red-500"><i class="bi bi-pencil-square text-xs"></i></a>
+            </div>
+            <p class="text-slate-600 font-semibold text-xs mb-2" id="sdt_lanhdao">...</p>
+            <a id="goingay_lanhdao" href="#" class="block w-full bg-red-600 hover:bg-red-700 transition-colors text-white font-bold py-1.5 rounded-lg text-xs shadow-sm">
+                <i class="bi bi-telephone-fill mr-1"></i> GỌI KHẨN CẤP
+            </a>
+        </div>
+
+        <div class="space-y-1.5">
+            <p class="text-[10px] font-bold text-slate-400 uppercase ml-1">Chuyên môn</p>
+            
+            <div class="bg-white border border-slate-200 p-2 rounded-lg shadow-sm flex justify-between items-center">
+                <div>
+                    <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">Bác sĩ 1</span>
+                    <div class="flex items-center gap-1 mt-1">
+                        <h3 class="font-bold text-slate-800 text-sm leading-tight" id="name_chuyenmon_1">...</h3>
+                        <a id="edit-name-bacsi1" href="#" target="_blank" class="text-slate-300 hover:text-emerald-500"><i class="bi bi-pencil text-[10px]"></i></a>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-0.5" id="sdt_bacsi_1">...</p>
+                </div>
+                <a id="goingay_bacsi_1" href="#" class="bg-slate-50 hover:bg-emerald-600 hover:text-white transition-colors text-emerald-600 w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-slate-100"><i class="bi bi-telephone-fill text-sm"></i></a>
+            </div>
+
+            <div class="bg-white border border-slate-200 p-2 rounded-lg shadow-sm flex justify-between items-center">
+                <div>
+                    <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">Bác sĩ 2</span>
+                    <div class="flex items-center gap-1 mt-1">
+                        <h3 class="font-bold text-slate-800 text-sm leading-tight" id="name_chuyenmon_2">...</h3>
+                        <a id="edit-name-bacsi2" href="#" target="_blank" class="text-slate-300 hover:text-emerald-500"><i class="bi bi-pencil text-[10px]"></i></a>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-0.5" id="sdt_bacsi_2">...</p>
+                </div>
+                <a id="goingay_bacsi_2" href="#" class="bg-slate-50 hover:bg-emerald-600 hover:text-white transition-colors text-emerald-600 w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-slate-100"><i class="bi bi-telephone-fill text-sm"></i></a>
+            </div>
+
+            <div class="bg-white border border-slate-200 p-2 rounded-lg shadow-sm flex justify-between items-center">
+                <div>
+                    <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">Bác sĩ 3</span>
+                    <div class="flex items-center gap-1 mt-1">
+                        <h3 class="font-bold text-slate-800 text-sm leading-tight" id="name_chuyenmon_3">...</h3>
+                        <a id="edit-name-bacsi3" href="#" target="_blank" class="text-slate-300 hover:text-emerald-500"><i class="bi bi-pencil text-[10px]"></i></a>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-0.5" id="sdt_bacsi_3">...</p>
+                </div>
+                <a id="goingay_bacsi_3" href="#" class="bg-slate-50 hover:bg-emerald-600 hover:text-white transition-colors text-emerald-600 w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-slate-100"><i class="bi bi-telephone-fill text-sm"></i></a>
+            </div>
+        </div>
+
+        <div class="space-y-1.5">
+            <p class="text-[10px] font-bold text-slate-400 uppercase ml-1">Điều dưỡng</p>
+            
+            <div class="bg-white border border-slate-200 p-2 rounded-lg shadow-sm flex justify-between items-center">
+                <div>
+                    <span class="text-[9px] font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">Trưởng Tour</span>
+                    <div class="flex items-center gap-1 mt-1">
+                        <h3 class="font-bold text-slate-800 text-sm leading-tight" id="name_dieuduong_1">...</h3>
+                        <a id="edit-name-dieuduong1" href="#" target="_blank" class="text-slate-300 hover:text-blue-500"><i class="bi bi-pencil text-[10px]"></i></a>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-0.5" id="sdt_dieuduong_1">...</p>
+                </div>
+                <a id="goingay_dieuduong_1" href="#" class="bg-slate-50 hover:bg-blue-600 hover:text-white transition-colors text-blue-600 w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-slate-100"><i class="bi bi-telephone-fill text-sm"></i></a>
+            </div>
+
+            <div class="bg-white border border-slate-200 p-2 rounded-lg shadow-sm flex justify-between items-center">
+                <div>
+                    <span class="text-[9px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">ĐD Trực</span>
+                    <div class="flex items-center gap-1 mt-1">
+                        <h3 class="font-bold text-slate-800 text-sm leading-tight" id="name_dieuduong_2">...</h3>
+                        <a id="edit-name-dieuduong2" href="#" target="_blank" class="text-slate-300 hover:text-blue-500"><i class="bi bi-pencil text-[10px]"></i></a>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-0.5" id="sdt_dieuduong_2">...</p>
+                </div>
+                <a id="goingay_dieuduong_2" href="#" class="bg-slate-50 hover:bg-blue-600 hover:text-white transition-colors text-blue-600 w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-slate-100"><i class="bi bi-telephone-fill text-sm"></i></a>
+            </div>
+
+            <div class="bg-orange-50 border border-orange-200 p-2 rounded-lg shadow-sm flex justify-between items-center">
+                <div>
+                    <span class="text-[9px] font-bold text-orange-600 bg-white px-1.5 py-0.5 rounded border border-orange-100">ĐD Cấp Cứu</span>
+                    <div class="flex items-center gap-1 mt-1">
+                        <h3 class="font-bold text-slate-800 text-sm leading-tight" id="name_dieuduong_capcuu">...</h3>
+                        <a id="edit-name-dieuduongcc" href="#" target="_blank" class="text-orange-300 hover:text-orange-500"><i class="bi bi-pencil text-[10px]"></i></a>
+                    </div>
+                    <p class="text-[11px] text-slate-600 mt-0.5" id="sdt_dieuduong_capcuu">...</p>
+                </div>
+                <a id="goingay_dieuduong_capcuu" href="#" class="bg-orange-500 hover:bg-orange-600 transition-colors text-white w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm"><i class="bi bi-telephone-fill text-sm"></i></a>
+            </div>
+        </div>
+
+        <div class="space-y-1.5">
+            <p class="text-[10px] font-bold text-slate-400 uppercase ml-1">Hỗ trợ</p>
+            
+            <div class="bg-white border border-slate-200 p-2 rounded-lg shadow-sm flex justify-between items-center mb-1.5">
+                <div>
+                    <span class="text-[9px] font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">Lái xe CC</span>
+                    <h3 class="font-bold text-slate-800 text-sm mt-1 leading-tight" id="name_laixe_capcuu">...</h3>
+                    <p class="text-[11px] text-slate-500 mt-0.5" id="sdt_laixe_capcuu">...</p>
+                </div>
+                <a id="goingay_laixe_capcuu" href="#" class="bg-slate-50 hover:bg-slate-700 hover:text-white transition-colors text-slate-600 w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-slate-100"><i class="bi bi-telephone-fill text-sm"></i></a>
+            </div>
+
+            <div class="grid grid-cols-2 gap-1.5">
+                <div class="bg-white p-2 rounded-lg border border-slate-200 flex flex-col justify-between shadow-sm">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase mb-0.5">Bảo vệ 1</span>
+                    <div class="flex items-center gap-1 mb-1">
+                        <h3 class="font-bold text-slate-700 text-xs leading-tight" id="name_baove_1">...</h3>
+                        <a id="edit-name-baove1" href="#" target="_blank" class="text-slate-300 hover:text-slate-500"><i class="bi bi-pencil text-[9px]"></i></a>
+                    </div>
+                    <a id="goingay_baove_1" href="#" class="text-center text-[10px] bg-slate-50 hover:bg-slate-200 border border-slate-100 text-slate-700 py-1.5 rounded font-bold transition-colors">GỌI</a>
+                </div>
+                <div class="bg-white p-2 rounded-lg border border-slate-200 flex flex-col justify-between shadow-sm">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase mb-0.5">Bảo vệ 2</span>
+                    <div class="flex items-center gap-1 mb-1">
+                        <h3 class="font-bold text-slate-700 text-xs leading-tight" id="name_baove_2">...</h3>
+                        <a id="edit-name-baove2" href="#" target="_blank" class="text-slate-300 hover:text-slate-500"><i class="bi bi-pencil text-[9px]"></i></a>
+                    </div>
+                    <a id="goingay_baove_2" href="#" class="text-center text-[10px] bg-slate-50 hover:bg-slate-200 border border-slate-100 text-slate-700 py-1.5 rounded font-bold transition-colors">GỌI</a>
+                </div>
+                <div class="bg-white p-2 rounded-lg border border-slate-200 flex flex-col justify-between shadow-sm">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase mb-0.5">Hộ lý 1</span>
+                    <h3 class="font-bold text-slate-700 text-xs leading-tight mb-1" id="name_holy_1">...</h3>
+                    <a id="goingay_holy_1" href="#" class="text-center text-[10px] bg-slate-50 hover:bg-slate-200 border border-slate-100 text-slate-700 py-1.5 rounded font-bold transition-colors">GỌI</a>
+                </div>
+                <div class="bg-white p-2 rounded-lg border border-slate-200 flex flex-col justify-between shadow-sm">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase mb-0.5">Hộ lý 2</span>
+                    <h3 class="font-bold text-slate-700 text-xs leading-tight mb-1" id="name_holy_2">...</h3>
+                    <a id="goingay_holy_2" href="#" class="text-center text-[10px] bg-slate-50 hover:bg-slate-200 border border-slate-100 text-slate-700 py-1.5 rounded font-bold transition-colors">GỌI</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-2 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-30">
+        <div class="max-w-md mx-auto flex justify-between items-center gap-2">
+            <button id="preButton" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-lg flex justify-center items-center gap-1 transition-colors">
+                <i class="bi bi-chevron-left text-xs"></i> 
+                <span id="preButton-span" class="text-xs font-bold">Trước</span>
+            </button>
+            
+            <button id="btn_open_modal" class="bg-orange-500 hover:bg-orange-600 transition-colors text-white px-4 py-2.5 rounded-lg shadow-sm font-bold text-xs flex items-center gap-1">
+                <i class="bi bi-shield-plus"></i> CHUYÊN GIA
+            </button>
+
+            <button id="nextButton" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-lg flex justify-center items-center gap-1 transition-colors">
+                <span id="nextButton-span" class="text-xs font-bold">Sau</span>
+                <i class="bi bi-chevron-right text-xs"></i>
+            </button>
+        </div>
+    </footer>
+
+    <div id="thuongtruc_modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-sm overflow-hidden">
+            <div class="bg-slate-800 p-3 text-white flex justify-between items-center">
+                <h5 class="font-bold text-sm m-0">THƯỜNG TRỰC BV</h5>
+                <button id="btn_close_modal" class="text-white/70 hover:text-white p-1"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="p-3 space-y-3">
+                <div class="flex justify-between items-center p-2 bg-slate-50 border border-slate-100 rounded-lg">
+                    <div>
+                        <p class="font-bold text-slate-800 text-xs m-0">BS.CKI PHAN HÀ SINH</p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">Giám đốc / Trực lãnh đạo</p>
+                    </div>
+                    <a href="tel:0886979579" class="bg-orange-500 text-white px-3 py-1.5 rounded text-xs font-bold shadow-sm"><i class="bi bi-telephone-fill"></i> GỌI</a>
+                </div>
+                <div class="flex justify-between items-center p-2 bg-slate-50 border border-slate-100 rounded-lg">
+                    <div>
+                        <p class="font-bold text-slate-800 text-xs m-0">BS.CKI TRƯƠNG THỊ PHƯỢNG</p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">Phó giám đốc</p>
+                    </div>
+                    <a href="tel:0975721098" class="bg-orange-500 text-white px-3 py-1.5 rounded text-xs font-bold shadow-sm"><i class="bi bi-telephone-fill"></i> GỌI</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script>
+        // ==========================================
+        // 1. CẤU HÌNH API GỐC CỦA BẠN
+        // ==========================================
+        const API_URL_SHIFTS = 'https://script.googleusercontent.com/macros/echo?user_content_key=dtCyqC8cDyfBQCyMqdFCj7vWR8M-BD_S_-wQ_xEj_Z5_8RUExUJD2ksBGEzF10bQE-cNC1El21ERmoiWXMn4_HhL25kHuAnBm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnDOXpLS6q8pG-3nPXFIos8guwMv2IftC2mt1_vs6GEbA9zJpSUK3E28x_5X1r_7mzVEIbTbbOzsfxo8M8apwEtgszTRjkdKcDA&lib=MDP77teiJxeYZ2O14qaqmql47xHerzBZE';
+        const API_URL_CONTACTS = 'https://script.googleusercontent.com/macros/echo?user_content_key=mfUFBobD3JuWnHrYjtKlMdITXznP1HYSO60KBRpJpDUYX923Mfn17YnQaEGS7TcEqWhI4GB76hGRDTE2Pl_dJioZESBU57Ffm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnGfAgSJt0sbFfDzl1eB8884iK2W4HN0HGmJiyRZCmaKv26cvoFK3H_Hd09FHRDUiPqz8BG3VRljYHIhP0F_YcUccn8T1QI0UDA&lib=MDP77teiJxeYZ2O14qaqmql47xHerzBZE';
+        const SHEET_URL = "https://docs.google.com/spreadsheets/d/1h85XdXHGlZNZC8LVuXxvkW2veUsWzcn-Tvz2vVvU0ow/edit#gid=0&range=";
+
+        // ==========================================
+        // 2. LOGIC TÌM KIẾM DANH BẠ VÀ GỌI/ZALO
+        // ==========================================
+        $(document).ready(function() {
+            // Modal Logic (Tailwind)
+            $("#btn_open_modal").click(function() { $("#thuongtruc_modal").removeClass('hidden'); });
+            $("#btn_close_modal").click(function() { $("#thuongtruc_modal").addClass('hidden'); });
+
+            // Tải dữ liệu đổ vào Datalist
+            fetch(API_URL_CONTACTS)
+                .then(response => response.json())
+                .then(danhba => {
+                    const ListDanhba = document.getElementById("suggestions");
+                    let text = "";
+                    for (let i = 0; i < danhba.length; i++) {
+                        if(danhba[i].sodienthoai) {
+                            text += `<option value="${danhba[i].sodienthoai} - ${danhba[i].hovaten} - ${danhba[i].donvi}"></option>`;
+                        }
+                    }
+                    ListDanhba.innerHTML = text;
+                })
+                .catch(err => console.log("Lỗi tải API danh bạ:", err));
+
+            // Nút Gọi Ngay
+            $("#goi_ngay").click(function(e) {
+                e.preventDefault();
+                const val = $("#search-input").val();
+                if(!val) return alert("Vui lòng nhập tên hoặc số để tìm kiếm!");
+                const sdtSlice = val.slice(0, 10).trim();
+                window.location.href = "tel:" + sdtSlice;
+            });
+
+            // Nút Zalo Ngay
+            $("#zalo_ngay").click(function(e) {
+                e.preventDefault();
+                const val = $("#search-input").val();
+                if(!val) return alert("Vui lòng nhập tên hoặc số để tìm kiếm!");
+                const sdtSlice = val.slice(0, 10).trim();
+                window.open("https://zalo.me/" + sdtSlice, "_blank");
+            });
+        });
+
+        // ==========================================
+        // 3. LOGIC HIỂN THỊ PHIÊN TRỰC (CHUYỂN NGÀY)
+        // ==========================================
+        let shiftData = []; 
+        const currentDate = new Date();
+        let currentDayIndex = currentDate.getDate(); 
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentYear = currentDate.getFullYear(); 
+
+        function updateUI(day) {
+            if (!shiftData || shiftData.length === 0) return;
+            if (day < 1) day = 1;
+            if (day > shiftData.length) day = shiftData.length;
+            
+            currentDayIndex = day; 
+            const data = shiftData[day - 1]; 
+            const rowSheet = day + 1; 
+
+            // Cập nhật ngày tháng trên giao diện
+            $("#ngayhomnay").text(`PHIÊN TRỰC NGÀY: ${day}/${currentMonth}/${currentYear}`);
+            $("#nextButton-span").text(`${day + 1}/${currentMonth}`);
+            $("#preButton-span").text(`${day - 1}/${currentMonth}`);
+
+            // Map ID HTML với biến Google Sheets
+            const fields = [
+                { id: "lanhdao", col: "B" }, 
+                { id: "bacsi_1", col: "D", htmlId: "chuyenmon_1", editId: "bacsi1" },
+                { id: "bacsi_2", col: "F", htmlId: "chuyenmon_2", editId: "bacsi2" }, 
+                { id: "bacsi_3", col: "H", htmlId: "chuyenmon_3", editId: "bacsi3" },
+                { id: "dieuduong_1", col: "L", editId: "dieuduong1" }, 
+                { id: "dieuduong_2", col: "N", editId: "dieuduong2" },
+                { id: "dieuduong_capcuu", col: "J", editId: "dieuduongcc" }, 
+                { id: "laixe_capcuu", htmlId: "laixe_capcuu", noEdit: true },
+                { id: "baove_1", col: "T", editId: "baove1" },
+                { id: "baove_2", col: "V", editId: "baove2" }, 
+                { id: "holy_1", noEdit: true }, 
+                { id: "holy_2", noEdit: true }
+            ];
+
+            fields.forEach(f => {
+                const htmlNameId = f.htmlId ? f.htmlId : f.id;
+                
+                const nameText = data[f.id] || '---';
+                const phoneText = data[`sdt_${f.id}`] || 'Chưa có số';
+                
+                $(`#name_${htmlNameId}`).text(nameText);
+                if($(`#sdt_${htmlNameId}`).length) $(`#sdt_${htmlNameId}`).text(phoneText);
+                
+                $(`#goingay_${htmlNameId}`).attr("href", phoneText !== 'Chưa có số' ? "tel:" + phoneText : "#");
+                if(!f.noEdit) $(`#edit-name-${f.editId || htmlNameId}`).attr("href", SHEET_URL + f.col + rowSheet);
+            });
+        }
+
+        $(document).ready(function() {
+            fetch(API_URL_SHIFTS)
+                .then(response => response.json())
+                .then(data => {
+                    shiftData = data;
+                    updateUI(currentDayIndex);
+                })
+                .catch(error => {
+                    console.error('Lỗi API lịch trực:', error);
+                    $("#ngayhomnay").text("Lỗi tải dữ liệu. Hãy tải lại trang!");
+                });
+
+            $("#nextButton").click(() => updateUI(currentDayIndex + 1));
+            $("#preButton").click(() => updateUI(currentDayIndex - 1));
+        });
+    </script>
+</body>
+</html>
